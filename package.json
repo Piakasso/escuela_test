@@ -1,5 +1,6 @@
 {
   "name": "escuela_test",
+  "homepage": "https://escuela-test-2024.web.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

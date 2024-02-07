@@ -1,8 +1,8 @@
 import { PayloadAction, createAction, createSlice } from "@reduxjs/toolkit";
 import { put } from "redux-saga/effects";
-
 import { cardsRef } from "../../app/firebase";
 import { getDoc } from "firebase/firestore";
+
 import { RootState } from "../../app/store";
 import { ICard } from "../../types";
 import { setAllDictionary } from "../dictionary/dictionarySlice";

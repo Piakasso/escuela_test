@@ -1,8 +1,8 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
 import DictionaryItem from "./DictionaryItem";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 import { getDictionaries, selectAllDictionaries } from "./dictionarySlice";
 
 const DictionariesListEl = styled.ul`
