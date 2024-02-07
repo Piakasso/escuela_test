@@ -57,14 +57,16 @@ const DetailsInput = () => {
       setEnglish("");
       setRussian("");
     } else {
-      setTimeout(async () => {
+      try {
         const translations = await Promise.all([
           fetchTranslate(word, "es", "ru"),
           fetchTranslate(word, "es", "en"),
         ]);
         setRussian(translations[0].toLowerCase());
         setEnglish(translations[1].toLowerCase());
-      }, 1000);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

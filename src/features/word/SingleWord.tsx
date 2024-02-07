@@ -40,21 +40,25 @@ const SingleWord = ({ number, learnWord, translate }: ISingleWordProps) => {
 
   const handleSubmit = async () => {
     setIsInput(false);
-    const translations = await Promise.all([
-      fetchTranslate(sp, "es", "ru"),
-      fetchTranslate(sp, "es", "en"),
-    ]);
-    setRus(translations[0].toLowerCase());
-    setEng(translations[1].toLowerCase());
-    const updatedWord: IWord = {
-      learnWord: sp,
-      translate: {
-        en: translations[0].toLowerCase(),
-        ru: translations[1].toLowerCase(),
-      },
-    };
+    try {
+      const translations = await Promise.all([
+        fetchTranslate(sp, "es", "ru"),
+        fetchTranslate(sp, "es", "en"),
+      ]);
+      setRus(translations[0].toLowerCase());
+      setEng(translations[1].toLowerCase());
+      const updatedWord: IWord = {
+        learnWord: sp,
+        translate: {
+          en: translations[0].toLowerCase(),
+          ru: translations[1].toLowerCase(),
+        },
+      };
 
-    dispatch(updateWord({ updatedWord, number }));
+      dispatch(updateWord({ updatedWord, number }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDelete = () => {

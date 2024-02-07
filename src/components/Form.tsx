@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { FormProps } from "../types";
@@ -48,6 +48,7 @@ const Img = styled.img`
 
 const Form = ({ placeholder, onSubmit, onBlur }: FormProps) => {
   const [inputValue, setInputValue] = useState("");
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -57,13 +58,15 @@ const Form = ({ placeholder, onSubmit, onBlur }: FormProps) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    if (onBlur) {
-      setTimeout(() => {
-        onBlur(e.target.value);
-      }, 1000);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
     }
+    timeoutRef.current = setTimeout(() => {
+      if (onBlur) {
+        onBlur(e.target.value);
+      }
+    }, 1000);
   };
-
   return (
     <FormEl onSubmit={handleSubmit}>
       <Input
